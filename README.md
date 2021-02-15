@@ -17,8 +17,9 @@ List of url:
     ```
     { 
         status: number;
-        description: string;
-        value: string;
+        statusDescription: StatusDescription;
+        description?: string;
+        value?: string;
     } 
     ```
 
@@ -33,10 +34,11 @@ List of url:
     ***All urls return the next JSON object:***
     ```
     { 
-        status: number;
-        description: string;
-        value: string;
-        key: string;
-        ttl: number;
+        status: Status;
+        statusDescription: StatusDescription;
+        description?: String;
+        value?: String;
+        key?: String;
+        ttl?: Number;
     }
     ```
