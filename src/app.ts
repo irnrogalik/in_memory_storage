@@ -26,7 +26,10 @@ app.use(function (e, req, res, next) {
     res.locals.error = req.app.get('env') === 'development' ? e : {};
 
     res.status(e.status || 500);
-    res.render('error');
+    res.json({
+        message: e.message,
+        error: e
+    });
 });
 
 app.listen(port, () => {

@@ -9,7 +9,7 @@ export class Stack {
         this.stack.push(value);
     }
 
-    public getValueFromStack(): String {
+    public getValueFromStack(): String | undefined {
         return this.stack.pop();
     }
 
