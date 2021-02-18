@@ -1,46 +1,33 @@
 import express from 'express';
 import { IResponse } from '../interfaces';
-import { Description, Status, StatusDescription } from '../enums';
+import { Description, DescriptionErrors } from '../enums';
 import { Stack } from '../models/stackModel';
-import { checkValuesInRequestBody, validation } from '../validation';
+import { validationMiddleware } from '../validation';
 import { schemaForStack } from '../schema';
 const router: express.Router = express.Router();
 const stack: Stack = new Stack();
 
-router.post('/add', function (req, res, next) {
-    let response: IResponse = validation(req, res, next);
-    if (response.status !== Status.Accepted) {
-        res.json(response); return;
-    } else {
-        response = checkValuesInRequestBody(req.body, response, schemaForStack);
-    }
-    if (response.status !== Status.Accepted) { res.json(response); return; }
-
+router.post('/add', validationMiddleware(schemaForStack), function (req, res, next) {
     const { value } = req.body;
     stack.addValueToStack(value);
-    response = {
-        status: Status.Created,
-        statusDescription: StatusDescription.Created,
+    const response: IResponse = {
         description: Description.Add,
-        value: value
+        value
     };
     res.json(response);
 });
 
 router.get('/get', function (req, res, next) {
     const value = stack.getValueFromStack();
-    const response: IResponse = {
-        status: Status.Ok,
-        statusDescription: StatusDescription.Ok
-    };
     if (value) {
-        response.value = stack.getValueFromStack();
-        response.description = Description.Get;
+        const response: IResponse = {
+            value: stack.getValueFromStack(),
+            description: Description.Get
+        };
+        res.json(response);
     } else {
-        response.status = Status.NoContent;
-        response.statusDescription = StatusDescription.NoContent;
+        res.status(400).json({ error: DescriptionErrors.Get });
     }
-    res.json(response);
 });
 
 export default router;

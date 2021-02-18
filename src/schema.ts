@@ -1,6 +1,6 @@
-import Ajv, { JSONSchemaType } from 'ajv';
+import Ajv, { DefinedError, JSONSchemaType } from 'ajv';
 
-const ajv = new Ajv();
+const ajv = new Ajv({ allErrors: true });
 
 interface StackBody {
     value: string;
@@ -39,3 +39,15 @@ export const schemaForStorageWithValue: JSONSchemaType<StorageBody> = {
     },
     required: [ 'key', 'value' ]
 };
+
+export function validateSchema(schema, data) {
+    const validate = ajv.compile(schema);
+    const valid = validate(data);
+    const errors: Array<string | undefined> = [];
+    if (!valid) {
+        for (const err of validate.errors as DefinedError[]) {
+            errors.push(err.message);
+        }
+    }
+    return { isValid: valid, error: valid ? '' : errors.join(';') };
+}
