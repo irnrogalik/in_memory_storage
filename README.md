@@ -15,9 +15,7 @@ List of url:
 
     ***Both urls return the next JSON object:***
     ```
-    { 
-        status: number;
-        statusDescription: StatusDescription;
+    {
         description?: string;
         value?: string;
     } 
@@ -34,8 +32,24 @@ List of url:
     ***All urls return the next JSON object:***
     ```
     { 
-        status: Status;
-        statusDescription: StatusDescription;
+        description?: String;
+        value?: String;
+        key?: String;
+        ttl?: Number;
+    }
+    ```
+
+3. Redis:
+
+    2.1 POST **/redis/add** used to **add an object** to the storage, need to *pass the object* `{ key: 'Key', value: 'Value', ttl?: 1 }`
+
+    2.2 POST **/redis/get** used to **get an object** by key, need to *pass the key* `{ key: 'Key' }`
+
+    2.3 DELETE **/redis/delete** used to **delete an object** by key, need to *pass the key* `{ key: 'Key' }`
+
+    ***All urls return the next JSON object:***
+    ```
+    { 
         description?: String;
         value?: String;
         key?: String;
