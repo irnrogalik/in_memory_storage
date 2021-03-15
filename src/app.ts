@@ -4,9 +4,10 @@ import path from 'path';
 import cookieParser from 'cookie-parser';
 import stackRoute from './routes/stackRoute';
 import storageRoute from './routes/storageRoute';
+import redisRoute from './routes/redisRoute';
+import { appConfig } from './config';
 
 const app = express();
-const port: number = 3000;
 
 app
     .use(express.json())
@@ -16,6 +17,7 @@ app
 
 app.use('/stack', stackRoute);
 app.use('/storage', storageRoute);
+app.use('/redis', redisRoute);
 
 app.use(function (req, res, next) {
     next(createError(404));
@@ -32,8 +34,8 @@ app.use(function (e, req, res, next) {
     });
 });
 
-app.listen(port, () => {
-    console.log(`Server Started at Port, ${ port }`);
+app.listen(appConfig.port, () => {
+    console.log(`Server Started at Port, ${ appConfig.port }`);
 });
 
 export default app;
