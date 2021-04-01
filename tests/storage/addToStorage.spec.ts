@@ -1,7 +1,11 @@
 import { expect } from 'chai';
 import { it, describe, after } from 'mocha';
+import { IStorage } from '../../src/interfaces';
 import { Storage } from '../../src/models/storageModel';
-const storage: Storage = new Storage();
+import dotenv from 'dotenv';
+dotenv.config();
+
+const storage: IStorage = new Storage().createStorage(process.env.STORAGE_TYPE);
 
 describe('Add item to storage test', () => {
     after(() => {

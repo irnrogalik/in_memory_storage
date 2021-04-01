@@ -1,3 +1,8 @@
+export enum StorageType {
+    MEMORY = 'MEMORY',
+    REDIS = 'REDIS'
+}
+
 export enum Description {
     Add = 'The value was successfully added',
     Get = 'Get value',

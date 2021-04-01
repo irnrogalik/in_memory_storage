@@ -1,13 +1,16 @@
 import express from 'express';
 import { Description, DescriptionErrors } from '../enums';
-import { Storage } from '../models/storageModel';
 import { schemaForStorageWithValue, schemaForStorage } from '../schema';
 import { validationMiddleware } from '../validation';
 import { Response } from '../models/responseModel';
 import { BadResponse } from '../models/badResponseModel';
+import { Storage } from '../models/storageModel';
+import { IStorage } from '../interfaces';
+import dotenv from 'dotenv';
+dotenv.config();
 
 const router: express.Router = express.Router();
-const storage: Storage = new Storage();
+const storage: IStorage = new Storage().createStorage(process.env.STORAGE_TYPE);
 
 router.post('/add', validationMiddleware(schemaForStorageWithValue), function (req, res, next) {
     const { key, value, ttl } = req.body;
@@ -17,14 +20,14 @@ router.post('/add', validationMiddleware(schemaForStorageWithValue), function (r
 
 router.post('/get', validationMiddleware(schemaForStorage), function (req, res, next) {
     const { key } = req.body;
-    const value = storage.getFromStorage(key);
+    const value: String | Promise<String> = storage.getFromStorage(key);
     res.json(new Response(Description.GetByKey, value, key).get());
 });
 
 router.delete('/delete', validationMiddleware(schemaForStorage), function (req, res, next) {
     const { key } = req.body;
-    const isKeyExists: Boolean = storage.checkKeyInStorage(key);
-    if (isKeyExists) {
+    const value: String | Promise<String> = storage.getFromStorage(key);
+    if (value) {
         storage.removeFromStorage(key);
         res.json(new Response(Description.DeleteByKey, undefined, key).get());
     } else {

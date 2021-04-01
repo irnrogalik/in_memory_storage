@@ -1,30 +1,30 @@
 import asyncRedis from 'async-redis';
-import { DB_CONFIG } from '../interfaces';
+import { DB_CONFIG, IStorage } from '../interfaces';
 
-export class Redis {
+export class RedisStorage implements IStorage {
     private client: asyncRedis;
 
     constructor(option: DB_CONFIG) {
         this.client = asyncRedis.createClient(option.port, option.host);
     }
 
-    async set(valueObject) {
-        this.client.hmset('storage', valueObject);
+    async addToStorage(key: string, value: string, ttl = 0): Promise<void> {
+        this.client.hmset('storage', [ key, value ]);
     }
 
-    async getAll() {
-        return this.client.hgetall('storage');
-    }
-
-    async get(key: string) {
+    async getFromStorage(key: string): Promise<String> {
         return await this.client.hget('storage', key);
     }
 
-    async deleteByKey(key: string) {
+    async numberOfItems(): Promise<Number> {
+        return await this.client.hlen('storage');
+    }
+
+    async removeFromStorage(key: string): Promise<void> {
         return await this.client.hdel('storage', key);
     }
 
-    async flush() {
+    async emptyStorage(): Promise<void> {
         return await this.client.flushall();
     }
 }
