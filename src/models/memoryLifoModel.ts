@@ -1,15 +1,17 @@
-export class Stack {
+import { ILifo } from '../interfaces';
+
+export class MemoryLifo implements ILifo {
     private stack: String[];
 
     constructor() {
         this.stack = [];
     }
 
-    public addValueToStack(value: String): void {
+    public addValue(value: String): void {
         this.stack.push(value);
     }
 
-    public getValueFromStack(): String | undefined {
+    public getValue(): String | undefined {
         return this.stack.pop();
     }
 
@@ -17,7 +19,7 @@ export class Stack {
         return this.stack.length;
     }
 
-    public emptyStack(): void {
+    public empty(): void {
         for (const index in this.stack) {
             delete this.stack[ index ];
         }

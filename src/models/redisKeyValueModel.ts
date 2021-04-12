@@ -1,7 +1,7 @@
 import asyncRedis from 'async-redis';
-import { DB_CONFIG, IStorage } from '../interfaces';
+import { DB_CONFIG, IKeyValue } from '../interfaces';
 
-export class RedisStorage implements IStorage {
+export class RedisKeyValue implements IKeyValue {
     private client: asyncRedis;
 
     constructor(option: DB_CONFIG) {

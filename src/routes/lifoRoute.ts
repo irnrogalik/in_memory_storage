@@ -1,22 +1,22 @@
 import express from 'express';
 import { Description, DescriptionErrors } from '../enums';
-import { Stack } from '../models/stackModel';
 import { validationMiddleware } from '../validation';
 import { schemaForStack } from '../schema';
-import { Response } from '../models/responseModel';
-import { BadResponse } from '../models/badResponseModel';
+import { Response, BadResponse } from '../models';
+import { ILifo } from '../interfaces';
+import { Storage } from '../storage';
 
 const router: express.Router = express.Router();
-const stack: Stack = new Stack();
+const lifo: ILifo = new Storage().createLifoInstance();
 
 router.post('/add', validationMiddleware(schemaForStack), function (req, res, next) {
     const { value } = req.body;
-    stack.addValueToStack(value);
+    lifo.addValue(value);
     res.json(new Response(Description.Add, value).get());
 });
 
 router.get('/get', function (req, res, next) {
-    const value = stack.getValueFromStack();
+    const value = lifo.getValue();
     if (value) {
         res.json(new Response(Description.Get, value).get());
     } else {

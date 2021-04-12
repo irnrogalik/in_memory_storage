@@ -1,34 +1,36 @@
 import { expect } from 'chai';
 import { it, describe, after } from 'mocha';
-import { Stack } from '../../src/models/stackModel';
-const stack: Stack = new Stack();
+import { ILifo } from '../../src/interfaces';
+import { Storage } from '../../src/storage';
+
+const lifo: ILifo = new Storage().createLifoInstance();
 
 describe('Get items from stack test', () => {
     after(() => {
-        stack.emptyStack();
+        lifo.empty();
     });
     it('Add \'Hello\' item from stack', () => {
-        stack.addValueToStack('Hello');
-        expect(stack.numberOfValues()).to.equal(1);
+        lifo.addValue('Hello');
+        expect(lifo.numberOfValues()).to.equal(1);
     });
     it('Add \'World\' item from stack', () => {
-        stack.addValueToStack('World');
-        expect(stack.numberOfValues()).to.equal(2);
+        lifo.addValue('World');
+        expect(lifo.numberOfValues()).to.equal(2);
     });
     it('Get \'World\' item from stack', () => {
-        expect(stack.getValueFromStack()).to.equal('World');
-        expect(stack.numberOfValues()).to.equal(1);
+        expect(lifo.getValue()).to.equal('World');
+        expect(lifo.numberOfValues()).to.equal(1);
     });
     it('Add \'Again\' item from stack', () => {
-        stack.addValueToStack('Again');
-        expect(stack.numberOfValues()).to.equal(2);
+        lifo.addValue('Again');
+        expect(lifo.numberOfValues()).to.equal(2);
     });
     it('Get \'Again\' item from stack', () => {
-        expect(stack.getValueFromStack()).to.equal('Again');
-        expect(stack.numberOfValues()).to.equal(1);
+        expect(lifo.getValue()).to.equal('Again');
+        expect(lifo.numberOfValues()).to.equal(1);
     });
     it('Get \'Hello\' item from stack', () => {
-        expect(stack.getValueFromStack()).to.equal('Hello');
-        expect(stack.numberOfValues()).to.equal(0);
+        expect(lifo.getValue()).to.equal('Hello');
+        expect(lifo.numberOfValues()).to.equal(0);
     });
 });

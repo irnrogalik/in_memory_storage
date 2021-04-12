@@ -2,13 +2,11 @@ import createError from 'http-errors';
 import express from 'express';
 import path from 'path';
 import cookieParser from 'cookie-parser';
-import stackRoute from './routes/stackRoute';
-import storageRoute from './routes/storageRoute';
+import lifoRoute from './routes/lifoRoute';
+import keyValueRoute from './routes/keyValueRoute';
 import { appConfig } from './config';
-import dotenv from 'dotenv';
 
 const app = express();
-dotenv.config();
 
 app
     .use(express.json())
@@ -16,8 +14,8 @@ app
     .use(cookieParser())
     .use(express.static(path.join(__dirname, 'public')));
 
-app.use('/stack', stackRoute);
-app.use('/storage', storageRoute);
+app.use('/lifo', lifoRoute);
+app.use('/key-value', keyValueRoute);
 
 app.use(function (req, res, next) {
     next(createError(404));

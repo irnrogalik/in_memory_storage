@@ -1,6 +1,6 @@
-import { IStorage } from '../interfaces';
+import { IKeyValue } from '../interfaces';
 
-export class MemoryStorage implements IStorage {
+export class MemoryKeyValue implements IKeyValue {
     private storage: Object;
 
     constructor() {

@@ -1,4 +1,4 @@
-export interface IStorage {
+export interface IKeyValue {
     addToStorage(key: string, value: string, ttl?: number): Promise<void> | void;
     getFromStorage(key: string): Promise<String> | String;
     removeFromStorage(key: string): Promise<void> | void;
