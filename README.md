@@ -5,8 +5,10 @@ use `npm start` to start project and go to `http://localhost:3000/`
 
 use `npm test` to starting tests of project
 
-*** Before start project need to: *** 
+**Before start project need to:**
+
     1. create ***.env*** file with `STORAGE_TYPE = 'MEMORY'` # can be MEMORY or REDIS 
+
     2. do `docker-compose up -d` to start redis server
 
 List of url:
