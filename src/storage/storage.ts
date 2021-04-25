@@ -1,4 +1,4 @@
-import { redisConfig, storageTypeConfig } from '../config';
+import { storageTypeConfig } from '../config';
 import { StorageType } from '../enums';
 import { IKeyValue, ILifo } from '../interfaces';
 import { MemoryKeyValue, RedisKeyValue, MemoryLifo, RedisLifo } from '../models';
@@ -8,7 +8,7 @@ export class Storage extends StorageFactory {
     public createKeyValueInstance(): IKeyValue {
         switch (storageTypeConfig) {
         case StorageType.REDIS:
-            return new RedisKeyValue(redisConfig);
+            return new RedisKeyValue();
         default:
             return new MemoryKeyValue();
         }
@@ -17,7 +17,7 @@ export class Storage extends StorageFactory {
     public createLifoInstance(): ILifo {
         switch (storageTypeConfig) {
         case StorageType.REDIS:
-            return new RedisLifo(redisConfig);
+            return new RedisLifo();
         default:
             return new MemoryLifo();
         }

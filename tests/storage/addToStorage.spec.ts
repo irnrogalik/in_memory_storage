@@ -7,14 +7,14 @@ const keyValue: IKeyValue = new Storage().createKeyValueInstance();
 
 describe('Add item to storage test', () => {
     after(() => {
-        keyValue.emptyStorage();
+        keyValue.empty();
     });
     it('Add the first item with key \'name\' to storage', () => {
-        keyValue.addToStorage('name', 'John');
+        keyValue.add('name', 'John');
         expect(keyValue.numberOfItems()).to.equal(1);
     });
     it('Add the second item with key \'name\' to storage', () => {
-        keyValue.addToStorage('name', 'Larry', 30);
+        keyValue.add('name', 'Larry', 30);
         expect(keyValue.numberOfItems()).to.equal(1);
     });
 });

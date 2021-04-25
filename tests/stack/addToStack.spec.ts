@@ -10,11 +10,11 @@ describe('Add to stack test', () => {
         lifo.empty();
     });
     it('Add the first item to stack', () => {
-        lifo.addValue('Hello');
+        lifo.add('Hello');
         expect(lifo.numberOfValues()).to.equal(1);
     });
     it('Add the last item to stack', () => {
-        lifo.addValue('World');
+        lifo.add('World');
         expect(lifo.numberOfValues()).to.equal(2);
     });
 });

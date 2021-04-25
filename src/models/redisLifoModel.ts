@@ -1,26 +1,26 @@
-import Redis from 'redis';
-import { DB_CONFIG, ILifo } from '../interfaces';
-
+import asyncRedis from 'async-redis';
+import { redisClient } from '../libs/redis';
+import { ILifo } from '../interfaces';
 export class RedisLifo implements ILifo {
-    private client: Redis;
+    private client: asyncRedis;
 
-    constructor(option: DB_CONFIG) {
-        this.client = Redis.createClient(option.port, option.host);
+    constructor() {
+        this.client = redisClient;
     }
 
-    public addValue(value: String): void {
-        this.client.rpush('lifo', value);
+    async add(value: String): Promise<void> {
+        await this.client.rpush('lifo', value);
     }
 
-    public getValue(): String | undefined {
-        return this.client.rpop('lifo');
+    async get(): Promise<String> {
+        return await this.client.rpop('lifo');
     }
 
-    public numberOfValues(): Number {
-        return this.client.llen('lifo');
+    async numberOfValues(): Promise<Number> {
+        return await this.client.llen('lifo');
     }
 
-    public empty(): void {
-        this.client.flushall();
+    async empty(): Promise<void> {
+        return await this.client.flushall();
     }
 }

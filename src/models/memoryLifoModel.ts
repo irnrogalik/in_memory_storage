@@ -7,11 +7,11 @@ export class MemoryLifo implements ILifo {
         this.stack = [];
     }
 
-    public addValue(value: String): void {
+    public add(value: String): void {
         this.stack.push(value);
     }
 
-    public getValue(): String | undefined {
+    public get(): String | undefined {
         return this.stack.pop();
     }
 

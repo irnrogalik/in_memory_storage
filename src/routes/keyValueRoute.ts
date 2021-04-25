@@ -11,21 +11,21 @@ const keyValue: IKeyValue = new Storage().createKeyValueInstance();
 
 router.post('/add', validationMiddleware(schemaForStorageWithValue), function (req, res, next) {
     const { key, value, ttl } = req.body;
-    keyValue.addToStorage(key, value, ttl);
+    keyValue.add(key, value, ttl);
     res.json(new Response(Description.Add, value, key).get());
 });
 
-router.post('/get', validationMiddleware(schemaForStorage), function (req, res, next) {
+router.post('/get', validationMiddleware(schemaForStorage), async function (req, res, next) {
     const { key } = req.body;
-    const value: String | Promise<String> = keyValue.getFromStorage(key);
+    const value: String | Promise<String> = await keyValue.get(key);
     res.json(new Response(Description.GetByKey, value, key).get());
 });
 
-router.delete('/delete', validationMiddleware(schemaForStorage), function (req, res, next) {
+router.delete('/delete', validationMiddleware(schemaForStorage), async function (req, res, next) {
     const { key } = req.body;
-    const value: String | Promise<String> = keyValue.getFromStorage(key);
+    const value: String | Promise<String> = await keyValue.get(key);
     if (value) {
-        keyValue.removeFromStorage(key);
+        await keyValue.removeByKey(key);
         res.json(new Response(Description.DeleteByKey, undefined, key).get());
     } else {
         res.status(400).json(new BadResponse(DescriptionErrors.DeleteByKey).get());
