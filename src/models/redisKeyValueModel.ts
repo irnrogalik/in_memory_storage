@@ -4,28 +4,29 @@ import { redisClient } from '../libs/redis';
 
 export class RedisKeyValue implements IKeyValue {
     private client: asyncRedis;
+    hashName: string = 'keyValue';
 
     constructor() {
         this.client = redisClient;
     }
 
-    add(key: string, value: string, ttl = 0): void {
-        this.client.hmset('storage', [ key, value ]);
+    async add(key: string, value: string, ttl = 0): Promise<String> {
+        const isAdd = await this.client.hmset(`${ this.hashName }-${ key }`, [ key, value ]);
+        if (isAdd && ttl !== 0) {
+            await this.client.expire(`${ this.hashName }-${ key }`, ttl);
+        }
+        return isAdd;
     }
 
     async get(key: string): Promise<String> {
-        return await this.client.hget('storage', key);
-    }
-
-    async numberOfItems(): Promise<Number> {
-        return await this.client.hlen('storage');
+        return await this.client.hget(`${ this.hashName }-${ key }`, key);
     }
 
     async removeByKey(key: string): Promise<void> {
-        return await this.client.hdel('storage', key);
+        return await this.client.hdel(`${ this.hashName }-${ key }`, key);
     }
 
     async empty(): Promise<void> {
-        return await this.client.flushall();
+        await this.client.flushall();
     }
 }

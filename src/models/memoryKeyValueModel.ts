@@ -7,9 +7,10 @@ export class MemoryKeyValue implements IKeyValue {
         this.storage = {};
     }
 
-    public add(key: string, value: string, ttl = 0): void {
+    public add(key: string, value: string, ttl = 0): String {
         const date: number = ttl === 0 ? 0 : +new Date() + (ttl * 1000);
         this.storage[ key ] = { value, date };
+        return this.storage[ key ] ? 'OK' : 'WRONG';
     }
 
     public get(key: string): String {
@@ -23,11 +24,6 @@ export class MemoryKeyValue implements IKeyValue {
     public checkKeyInStorage(key: string): Boolean {
         this.validStorage();
         return key in this.storage;
-    }
-
-    public numberOfItems(): Number {
-        this.validStorage();
-        return Object.keys(this.storage).length;
     }
 
     public validStorage(): void {

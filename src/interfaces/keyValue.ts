@@ -1,7 +1,6 @@
 export interface IKeyValue {
-    add(key: string, value: string, ttl?: number): Promise<void> | void;
+    add(key: string, value: string, ttl?: number): Promise<String> | String;
     get(key: string): Promise<String> | String;
     removeByKey(key: string): Promise<void> | void;
     empty(): Promise<void> | void;
-    numberOfItems(): Promise<Number> | Number;
 }
