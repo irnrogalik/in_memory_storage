@@ -3,11 +3,11 @@ import { Description, DescriptionErrors } from '../enums';
 import { schemaForStorageWithValue, schemaForStorage } from '../schema';
 import { validationMiddleware } from '../validation';
 import { Response, BadResponse } from '../models';
-import { Storage } from '../storage';
 import { IKeyValue } from '../interfaces';
+import { MainInstance } from '../mainInstance';
 
 const router: express.Router = express.Router();
-const keyValue: IKeyValue = new Storage().createKeyValueInstance();
+const keyValue: IKeyValue = new MainInstance().keyValue;
 
 router.post('/add', validationMiddleware(schemaForStorageWithValue), function (req, res, next) {
     const { key, value, ttl } = req.body;

@@ -3,6 +3,11 @@ export enum StorageType {
     REDIS = 'REDIS'
 }
 
+export enum IsTest {
+    TRUE = 'TRUE',
+    FALSE = 'FALSE'
+}
+
 export enum Description {
     Add = 'The value was successfully added',
     Get = 'Get value',

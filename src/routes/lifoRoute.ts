@@ -4,10 +4,10 @@ import { validationMiddleware } from '../validation';
 import { schemaForStack } from '../schema';
 import { Response, BadResponse } from '../models';
 import { ILifo } from '../interfaces';
-import { Storage } from '../storage';
+import { MainInstance } from '../mainInstance';
 
 const router: express.Router = express.Router();
-const lifo: ILifo = new Storage().createLifoInstance();
+const lifo: ILifo = new MainInstance().lifo;
 
 router.post('/add', validationMiddleware(schemaForStack), function (req, res, next) {
     const { value } = req.body;

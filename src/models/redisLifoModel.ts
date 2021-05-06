@@ -1,11 +1,10 @@
 import asyncRedis from 'async-redis';
-import { redisClient } from '../libs/redis';
 import { ILifo } from '../interfaces';
 export class RedisLifo implements ILifo {
     private client: asyncRedis;
     hashName: string = 'lifo';
 
-    constructor() {
+    constructor(redisClient) {
         this.client = redisClient;
     }
 

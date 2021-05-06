@@ -1,9 +1,9 @@
 import { expect } from 'chai';
 import { it, describe, after } from 'mocha';
 import { IKeyValue } from '../../src/interfaces';
-import { Storage } from '../../src/storage';
+import { MainInstance } from '../../src/mainInstance';
 
-const keyValue: IKeyValue = new Storage().createKeyValueInstance();
+const keyValue: IKeyValue = new MainInstance().keyValue;
 
 describe('Add item to key-value storage test', () => {
     after(() => {

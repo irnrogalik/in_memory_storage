@@ -1,12 +1,10 @@
 import asyncRedis from 'async-redis';
 import { IKeyValue } from '../interfaces';
-import { redisClient } from '../libs/redis';
-
 export class RedisKeyValue implements IKeyValue {
     private client: asyncRedis;
     hashName: string = 'keyValue';
 
-    constructor() {
+    constructor(redisClient) {
         this.client = redisClient;
     }
 

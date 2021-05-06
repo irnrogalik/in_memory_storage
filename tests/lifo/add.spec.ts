@@ -1,9 +1,9 @@
 import { expect } from 'chai';
 import { it, describe, after } from 'mocha';
 import { ILifo } from '../../src/interfaces';
-import { Storage } from '../../src/storage';
+import { MainInstance } from '../../src/mainInstance';
 
-const lifo: ILifo = new Storage().createLifoInstance();
+const lifo: ILifo = new MainInstance().lifo;
 
 describe('Add to lifo storage test', () => {
     after(() => {

@@ -1,10 +1,10 @@
 import { expect } from 'chai';
 import { it, describe, after } from 'mocha';
 import { IKeyValue } from '../../src/interfaces';
-import { Storage } from '../../src/storage';
 import { sleep } from '../helpers';
+import { MainInstance } from '../../src/mainInstance';
 
-const keyValue: IKeyValue = new Storage().createKeyValueInstance();
+const keyValue: IKeyValue = new MainInstance().keyValue;
 
 describe('Get items from key-value storage test', function () {
     after(() => {
