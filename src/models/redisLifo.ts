@@ -1,6 +1,7 @@
 import asyncRedis from 'async-redis';
-import { ILifo } from '../interfaces';
-export class RedisLifo implements ILifo {
+import { ILifoModel } from '../interfaces';
+
+export class RedisLifoModel implements ILifoModel {
     private client: asyncRedis;
     hashName: string = 'lifo';
 

@@ -1,6 +1,6 @@
-export { MemoryKeyValue } from './memoryKeyValueModel';
-export { RedisKeyValue } from './redisKeyValueModel';
-export { MemoryLifo } from './memoryLifoModel';
-export { RedisLifo } from './redisLifoModel';
-export { Response } from './responseModel';
-export { BadResponse } from './badResponseModel';
+export { MemoryKeyValueModel } from './memoryKeyValue';
+export { RedisKeyValueModel } from './redisKeyValue';
+export { MemoryLifoModel } from './memoryLifo';
+export { RedisLifoModel } from './redisLifo';
+export { GoodResponse } from './goodResponse';
+export { BadResponse } from './badResponse';

@@ -1,6 +1,6 @@
-import { ILifo } from '../interfaces';
+import { ILifoModel } from '../interfaces';
 
-export class MemoryLifo implements ILifo {
+export class MemoryLifoModel implements ILifoModel {
     private stack: String[];
 
     constructor() {

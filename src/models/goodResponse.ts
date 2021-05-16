@@ -1,6 +1,6 @@
 import { IResponse } from '../interfaces';
 
-export class Response {
+export class GoodResponse {
     private response: IResponse;
 
     constructor(description: string, value?: string | String | Promise<String>, key?: string) {

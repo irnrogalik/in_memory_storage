@@ -4,6 +4,7 @@ export interface IResponse {
     key?: String;
     ttl?: Number;
 }
+
 export interface IBadResponse {
     error: String;
 }

@@ -1,4 +1,4 @@
-import { BadResponse } from './models/badResponseModel';
+import { BadResponse } from './models';
 import { validateSchema } from './schema';
 
 export function validationMiddleware(schema) {

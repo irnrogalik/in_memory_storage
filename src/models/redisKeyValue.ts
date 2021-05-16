@@ -1,6 +1,7 @@
 import asyncRedis from 'async-redis';
-import { IKeyValue } from '../interfaces';
-export class RedisKeyValue implements IKeyValue {
+import { IKeyValueModel } from '../interfaces';
+
+export class RedisKeyValueModel implements IKeyValueModel {
     private client: asyncRedis;
     hashName: string = 'keyValue';
 

@@ -2,7 +2,7 @@ import asyncRedis from 'async-redis';
 import redisMock from 'redis-mock';
 import { isTestConfig, redisConfig } from './config';
 import { IsTest } from './enums';
-import { IKeyValue, ILifo, StorageConfig } from './interfaces';
+import { IKeyValueModel, ILifoModel, StorageConfig } from './interfaces';
 import { Storage } from './storage';
 
 export class MainInstance {
@@ -10,8 +10,8 @@ export class MainInstance {
     private redisClient: asyncRedis | redisMock;
     private storageConfig: StorageConfig;
     private isTest: boolean;
-    public keyValue: IKeyValue;
-    public lifo: ILifo;
+    public keyValueModel: IKeyValueModel;
+    public lifoModel: ILifoModel;
 
     constructor() {
         this.isTest = isTestConfig === IsTest.TRUE;
@@ -20,7 +20,7 @@ export class MainInstance {
         this.storageConfig = {
             redisClient: this.redisClient
         };
-        this.keyValue = new Storage(this.storageConfig).createKeyValueInstance();
-        this.lifo = new Storage(this.storageConfig).createLifoInstance();
+        this.keyValueModel = new Storage(this.storageConfig).createKeyValueInstance();
+        this.lifoModel = new Storage(this.storageConfig).createLifoInstance();
     }
 }

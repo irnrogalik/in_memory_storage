@@ -1,6 +1,6 @@
-import { IKeyValue, ILifo } from '../interfaces';
+import { IKeyValueModel, ILifoModel } from '../interfaces';
 
 export abstract class StorageFactory {
-    abstract createKeyValueInstance(): IKeyValue;
-    abstract createLifoInstance(): ILifo;
+    abstract createKeyValueInstance(): IKeyValueModel;
+    abstract createLifoInstance(): ILifoModel;
 }

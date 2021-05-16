@@ -1,20 +1,20 @@
 import { expect } from 'chai';
 import { it, describe, after } from 'mocha';
-import { ILifo } from '../../src/interfaces';
+import { ILifoModel } from '../../src/interfaces';
 import { MainInstance } from '../../src/mainInstance';
 
-const lifo: ILifo = new MainInstance().lifo;
+const lifoModel: ILifoModel = new MainInstance().lifoModel;
 
 describe('Add to lifo storage test', () => {
     after(() => {
-        lifo.empty();
+        lifoModel.empty();
     });
     it('Add the first item', async () => {
-        await lifo.add('Hello');
-        expect(await lifo.numberOfValues()).to.equal(1);
+        await lifoModel.add('Hello');
+        expect(await lifoModel.numberOfValues()).to.equal(1);
     });
     it('Add the last item', async () => {
-        await lifo.add('World');
-        expect(await lifo.numberOfValues()).to.equal(2);
+        await lifoModel.add('World');
+        expect(await lifoModel.numberOfValues()).to.equal(2);
     });
 });
